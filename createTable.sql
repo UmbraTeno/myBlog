@@ -61,7 +61,8 @@ create table if not exists t_user(
 
 -- Blog和Tag的中间表
 create table if not exists t_blog_tag(
+    id int auto_increment,
     blog_id int,
     tag_id int,
-    primary key (blog_id,tag_id)
+    primary key (id)
 )ENGINE=INNODB DEFAULT CHARSET=utf8;
