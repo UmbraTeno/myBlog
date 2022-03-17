@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--读取外部的属性配置文件-->
+    <!--全局设置-->
+    <settings>
+<!--        <setting name="logImpl" value="LOG4J"/>-->
+        <setting name="mapUnderscoreToCamelCase" value="true" />
+    </settings>
+    <typeAliases>
+        <package name="com.zyt.blog.po"/>
+        <package name="com.zyt.blog.vo"/>
+    </typeAliases>
+<!--    <plugins>-->
+<!--        &lt;!&ndash; com.github.pagehelper为PageHelper类所在包名 &ndash;&gt;-->
+<!--        <plugin interceptor="com.github.pagehelper.PageInterceptor">-->
+<!--            &lt;!&ndash;配置方言，不配置会自动检测&ndash;&gt;-->
+<!--            <property name="helperDialect" value="mysql"/>-->
+<!--            &lt;!&ndash;分页参数合理化，如果低于0或者高于最后一页会自动匹配到合理的范围内&ndash;&gt;-->
+<!--            <property name="reasonable" value="true"/>-->
+<!--        </plugin>-->
+<!--    </plugins>-->
+    <!--读取映射文件-->
+    <mappers>
+        <mapper resource="mybatis/mappers/UserMapper.xml"/>
+        <mapper resource="mybatis/mappers/TypeMapper.xml"/>
+        <mapper resource="mybatis/mappers/BlogMapper.xml"/>
+        <mapper resource="mybatis/mappers/TagMapper.xml"/>
+        <mapper resource="mybatis/mappers/BlogTagMapper.xml"/>
+        <mapper resource="mybatis/mappers/CommentMapper.xml"/>
+    <!--导入注解映射接口-->
+    </mappers>
+</configuration>

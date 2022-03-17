@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyt.blog.mapper.TagMapper">
+<sql id="all_columns">
+    id,
+    name
+</sql>
+    <insert id="save" >
+        insert into t_tag(<include refid="all_columns"></include>) values
+        (null,#{name})
+    </insert>
+
+    <select id="findById" resultType="com.zyt.blog.po.Tag">
+        select <include refid="all_columns"></include> from t_tag where id = #{id}
+    </select>
+
+    <select id="findTypeByName" resultType="com.zyt.blog.po.Tag">
+        select <include refid="all_columns"></include> from t_tag where name = #{name}
+    </select>
+
+    <select id="findByPage" resultType="com.zyt.blog.po.Tag">
+        select <include refid="all_columns"></include> from t_tag
+    </select>
+
+    <update id="updateById">
+        update t_tag
+        <trim prefix="set" suffixOverrides=" , ">
+           <if test="name != null">name = #{name}</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from t_tag where id = #{id}
+    </delete>
+    <select id="findAll" resultType="com.zyt.blog.po.Tag">
+        select <include refid="all_columns"></include> from t_tag
+    </select>
+
+    <select id="findAllByList" resultType="com.zyt.blog.po.Tag">
+        select <include refid="all_columns"></include> from t_tag where
+        <foreach collection="list" separator=" or " item="l" >
+            id = #{l}
+        </foreach>
+    </select>
+
+    <resultMap id="tag" type="Tag">
+        <result column="tagId" property="id"/>
+        <result column="tagName" property="name"/>
+    </resultMap>
+    <select id="findByBlogId" resultMap="tag">
+        select ttag.id tagId,ttag.name tagName from t_tag ttag left join t_blog_tag tbt on tbt.tag_id = ttag.id
+        where tbt.blog_id = #{BlogId}
+    </select>
+
+
+</mapper>

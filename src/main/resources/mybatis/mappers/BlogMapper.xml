@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyt.blog.mapper.BlogMapper">
+
+    <sql id="all_columns">
+        id,
+        title,
+        content,
+        first_picture,
+        flag,
+        views,
+        appreciation,
+        share_statement,
+        commentabled,
+        published,
+        recommend,
+        create_time,
+        update_time,
+        description,
+        type_id,
+        user_id
+    </sql>
+
+    <sql id="blog_columns">
+        tb.id id,tb.title title,tb.content content,tb.first_picture first_picture,
+        tb.flag flag,tb.views views,tb.appreciation appreciation,tb.share_statement share_statement,
+        tb.commentabled commentabled,tb.published published,tb.recommend recommend,
+        tb.create_time create_time,tb.update_time update_time,tb.description description
+    </sql>
+    <sql id="type_columns">
+        tt.id t_id,tt.name name
+    </sql>
+    <sql id="user_columns">
+        tu.id u_id,tu.nickname nickname,tu.username username,tu.password password,
+        tu.email email,tu.avatar avatar,tu.create_time u_create_time,tu.update_time u_update_time
+    </sql>
+    <sql id="tag_columns">
+        ttag.id tag_id,ttag.name tag_name
+    </sql>
+
+<resultMap id="blogs" type="Blog">
+    <id column="id" property="id"/>
+    <result column="title" property="title"/>
+    <result column="content" property="content"/>
+    <result column="first_picture" property="firstPicture"/>
+    <result column="flag" property="flag"/>
+    <result column="views" property="views"/>
+    <result column="appreciation" property="appreciation"/>
+    <result column="share_statement" property="shareStatement"/>
+    <result column="commentabled" property="commentabled"/>
+    <result column="published" property="published"/>
+    <result column="recommend" property="recommend"/>
+    <result column="create_time" property="createTime"/>
+    <result column="update_time" property="updateTime"/>
+    <result column="description" property="description"/>
+    <association property="type" javaType="Type" column="type_id">
+        <result column="t_id" property="id"/>
+        <result column="name" property="name"/>
+    </association>
+    <association property="user" javaType="com.zyt.blog.po.User" column="user_id" >
+        <id column="u_id" property="id"/>
+        <result column="nickname" property="nickname"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="email" property="email"/>
+        <result column="avatar" property="avatar"/>
+        <result column="u_create_time" property="createTime"/>
+        <result column="u_update_time" property="updateTime"/>
+    </association>
+    <collection property="tags" ofType="com.zyt.blog.po.Tag">
+        <id column="tag_id" property="id"/>
+        <result column="tag_name" property="name"/>
+    </collection>
+
+</resultMap>
+    <insert id="save" parameterType="Blog" useGeneratedKeys="true" keyProperty="id">
+        insert into t_blog(<include refid="all_columns"></include>) values
+        (null,#{title},#{content},#{firstPicture},#{flag},#{views},#{appreciation},#{shareStatement},#{commentabled},#{published},
+        #{recommend},now(),now(),#{description},#{type.id},#{user.id})
+    </insert>
+
+    <select id="findById" resultMap="blogs">
+        select <include refid="blog_columns"></include>,
+        <include refid="type_columns"></include>,<include refid="user_columns"></include>,
+        <include refid="tag_columns"></include>
+        from t_blog tb
+        left join t_type tt on tb.type_id = tt.id
+        left join t_user tu on tb.user_id = tu.id
+        left join t_blog_tag tbt on tb.id = tbt.blog_id
+        left join t_tag ttag on tbt.tag_id = ttag.id
+        where tb.id = #{id}
+         <if test="published != null">and tb.published = #{published} </if>
+    </select>
+
+    <select id="findByPage" resultMap="blogs">
+        select  <include refid="blog_columns"></include>,
+        <include refid="type_columns"></include>,<include refid="user_columns"></include>
+        from t_blog tb
+        left join t_type tt on tb.type_id = tt.id
+        left join t_user tu on tb.user_id = tu.id
+        <trim prefix="where" suffixOverrides="and">
+            <if test="blog.title != null and blog.title != ''">tb.title like concat('%',#{blog.title},'%') and </if>
+            <if test="blog.typeId != null">tb.type_id = #{blog.typeId} and </if>
+            <if test="blog.recommend != null">tb.recommend = #{blog.recommend} and </if>
+            <if test="published != null">published = #{published}</if>
+        </trim>
+    </select>
+
+    <update id="updateById">
+        update t_blog
+        <trim prefix="set" suffixOverrides=" , ">
+            <if test="title != null">title = #{title} ,</if>
+            <if test="content != null">content = #{content} ,</if>
+            <if test="firstPicture != null">first_picture = #{firstPicture} ,</if>
+            <if test="flag != null">flag = #{flag} ,</if>
+            <if test="views != null">views = #{views} ,</if>
+            <if test="appreciation != null">appreciation = #{appreciation} ,</if>
+            <if test="shareStatement != null">share_statement = #{shareStatement} ,</if>
+            <if test="commentabled != null">commentabled = #{commentabled} ,</if>
+            <if test="published != null">published = #{published} ,</if>
+            <if test="recommend != null">recommend = #{recommend} ,</if>
+            <if test="createTime != null">create_time = #{createTime} ,</if>
+            update_time = now() ,
+            <if test="description != null">description = #{description} ,</if>
+            <if test="type.id != null">type_id = #{type.id} ,</if>
+            <if test="user.id != null">user_id = #{user.id}</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from t_blog where id = #{id}
+    </delete>
+
+    <select id="findByPublished" resultMap="blogs">
+         select  <include refid="blog_columns"></include>,
+        <include refid="type_columns"></include>,<include refid="user_columns"></include>
+        from t_blog tb,t_type tt,t_user tu
+        where tb.type_id = tt.id and tb.user_id = tu.id and tb.published = #{published}
+    </select>
+
+
+    <select id="findByTypeId" resultType="CountBlogByTypeId">
+        select tb.type_id typeId, tt.name typeName,count(tb.id) blogCount
+        from t_blog tb, t_type tt
+        where tb.type_id = tt.id and tb.published = true and tb.type_id = #{typeId}
+    </select>
+
+    <select id="findByRecommendCreateTime" resultMap="blogs">
+        select  <include refid="blog_columns"></include>,
+        <include refid="type_columns"></include>,<include refid="user_columns"></include>
+        from t_blog tb,t_type tt,t_user tu
+        where tb.type_id = tt.id and tb.user_id = tu.id and tb.recommend = true and tb.published = true
+        order by tb.create_time desc
+        limit 0,#{size}
+    </select>
+
+    <select id="findByQuery" resultMap="blogs">
+        select <include refid="blog_columns"></include>,
+        <include refid="type_columns"></include>,<include refid="user_columns"></include>
+        from t_blog tb
+        left join t_type tt on tb.type_id = tt.id
+        left join t_user tu on tb.user_id = tu.id
+        where
+        tb.title like concat('%',#{query},'%') or tb.content like concat('%',#{query},'%')
+    </select>
+    <select id="findByTagId" resultMap="blogs">
+        select  <include refid="blog_columns"></include>,
+        <include refid="type_columns"></include>,<include refid="user_columns"></include>,
+        <include refid="tag_columns"></include>
+        from t_blog tb,t_type tt,t_user tu,t_blog_tag tbt,t_tag ttag
+        where tb.type_id = tt.id and tb.user_id = tu.id and
+        tb.id = tbt.blog_id and tbt.tag_id = ttag.id and
+        <if test="published != null">tb.published = #{published} and </if>
+        ttag.id = #{tagId}
+    </select>
+    <select id="findBlogYear" resultType="java.lang.String">
+        select distinct(year(create_time)) from t_blog
+        <trim prefix="where">
+            <if test="published != null">published = #{published}</if>
+        </trim>
+    </select>
+    <select id="findByYear" resultType="com.zyt.blog.po.Blog">
+        select  <include refid="blog_columns"></include>,
+        <include refid="type_columns"></include>,<include refid="user_columns"></include>
+        from t_blog tb,t_type tt,t_user tu
+        where tb.type_id = tt.id and tb.user_id = tu.id and
+        <if test="published != null">tb.published = #{published} and</if>
+        tb.create_time like concat('%',#{year},'%')
+    </select>
+    <select id="findCountBlog" resultType="java.lang.Long">
+        select count(tb.id)
+        from t_blog tb
+        left join t_type tt on tb.type_id = tb.id
+        <trim prefix="where" suffixOverrides="and">
+            <if test="published != null">tb.published = #{published} and </if>
+            tb.id in
+            (select tbt.blog_id from t_blog_tag tbt
+            left join t_tag ttag on tbt.tag_id = ttag.id
+            )
+        </trim>
+    </select>
+    <update id="updateView" >
+        update t_blog set views = #{views} where id = #{id}
+    </update>
+    <update id="updateByTypeId">
+        update t_blog set type_id = #{updateTypeId} where type_id = #{typeId}
+    </update>
+</mapper>

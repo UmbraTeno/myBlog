@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyt.blog.mapper.BlogTagMapper">
+<sql id="all_columns">
+    blog_id,
+    tag_id
+</sql>
+
+    <insert id="save" parameterType="BlogTag">
+        insert into t_blog_tag(<include refid="all_columns"></include>) values
+        (#{blogId},#{tagId})
+    </insert>
+
+    <delete id="delete">
+        delete from t_blog_tag where blog_id = #{blogId}
+    </delete>
+
+    <update id="update">
+        update t_blog_tag set
+        tag_id = #{tagId}
+        where blog_id = #{blogId} and  tag_id = #{tagId}
+    </update>
+
+    <update id="updateByTagId">
+        update t_blog_tag set
+        tag_id = #{updateTagId}
+        where tag_id = #{tagId}
+    </update>
+
+    <select id="findByBlogIdTagId" resultType="BlogTag">
+        select <include refid="all_columns"></include> from t_blog_tag where blog_id = #{blogId}  and tag_id = #{tagId}
+    </select>
+
+    <select id="findByBlogId" resultType="com.zyt.blog.vo.BlogTags">
+        select blog_id,group_concat(tag_id) as tags from t_blog_tag where blog_id = #{blogId}
+    </select>
+
+    <select id="findByTagId" resultType="com.zyt.blog.vo.CountBlogByTagId">
+        select tbt.tag_id tagId,tt.name tagName,count(tbt.blog_id) blogCount
+        from t_blog_tag tbt
+        left join t_tag tt on tbt.tag_id = tt.id
+        left join t_blog tb on tbt.blog_id = tb.id
+        where tb.published = true and tbt.tag_id = #{tagId}
+    </select>
+
+    <select id="findBlogIdByTagId" resultType="java.lang.Long">
+        select blog_id from t_blog_tag where tag_id = #{tagId}
+    </select>
+
+
+</mapper>

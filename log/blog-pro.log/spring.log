@@ -1,0 +1,11 @@
+2021-11-23 16:00:38.186  INFO 16304 --- [restartedMain] com.zyt.blog.BlogApplication             : Starting BlogApplication using Java 11.0.6 on DESKTOP-H4CJS88 with PID 16304 (D:\workspace\code\blog\target\classes started by MR in D:\workspace\code\blog)
+2021-11-23 16:00:38.187  INFO 16304 --- [restartedMain] com.zyt.blog.BlogApplication             : The following profiles are active: pro
+2021-11-23 16:00:38.850  WARN 16304 --- [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.zyt.blog]' package. Please check your configuration.
+2021-11-23 16:00:39.162  WARN 16304 --- [restartedMain] o.a.catalina.core.AprLifecycleListener   : This listener must only be nested within Server elements, but is in [TomcatEmbeddedContext].
+2021-11-23 16:00:39.445  WARN 16304 --- [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2021-11-23 16:00:39.667  INFO 16304 --- [restartedMain] com.zyt.blog.BlogApplication             : Started BlogApplication in 1.853 seconds (JVM running for 2.89)
+2021-11-23 16:07:47.951  INFO 12948 --- [restartedMain] com.zyt.blog.BlogApplication             : Starting BlogApplication using Java 11.0.6 on DESKTOP-H4CJS88 with PID 12948 (D:\workspace\code\blog\target\classes started by MR in D:\workspace\code\blog)
+2021-11-23 16:07:47.952  INFO 12948 --- [restartedMain] com.zyt.blog.BlogApplication             : The following profiles are active: pro
+2021-11-23 16:07:48.554  WARN 12948 --- [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.zyt.blog]' package. Please check your configuration.
+2021-11-23 16:07:48.865  WARN 12948 --- [restartedMain] o.a.catalina.core.AprLifecycleListener   : This listener must only be nested within Server elements, but is in [TomcatEmbeddedContext].
+2021-11-23 16:07:49.371  INFO 12948 --- [restartedMain] com.zyt.blog.BlogApplication             : Started BlogApplication in 1.824 seconds (JVM running for 2.945)

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyt.blog.mapper.UserMapper">
+<sql id="all_columns">
+    id,
+    nickname,
+    username,
+    password,
+    email,
+    avatar,
+    type,
+    create_time,
+    update_time
+</sql>
+
+    <insert id="save" parameterType="User">
+        insert into t_user(<include refid="all_columns"></include>) values
+        (null,#{nickname},#{username},#{password},#{email},#{avatar},#{type},#{createTime},now())
+    </insert>
+
+    <delete id="delete">
+        delete from t_user where id = #{id}
+    </delete>
+
+    <update id="update">
+        update t_user
+        <trim prefix="set" suffixOverrides=" , ">
+            <if test="nickname != null">nickname = #{nickname},</if>
+            <if test="username != null">username = #{username},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="avatar != null">avatar = #{avatar},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            update_time = now()
+        </trim>
+        where id = #{id}
+    </update>
+
+    <select id="findById" resultType="com.zyt.blog.po.User">
+        select <include refid="all_columns"></include> from t_user where id = #{id}
+    </select>
+
+    <select id="findAll" resultType="com.zyt.blog.po.User">
+        select <include refid="all_columns"></include> from t_user
+    </select>
+    <select id="findByUsernameAndPassword" resultType="com.zyt.blog.po.User">
+        select <include refid="all_columns"></include> from t_user where username = #{username} and password = #{password}
+    </select>
+</mapper>

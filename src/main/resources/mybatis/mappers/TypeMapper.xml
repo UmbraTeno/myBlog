@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyt.blog.mapper.TypeMapper">
+<sql id="all_columns">
+    id,
+    name
+</sql>
+    <!--<resultMap id="type" type="Type">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <collection property="blogs" ofType="com.zyt.blog.po.Blog" select="com.zyt.blog.mapper.BlogMapper.findByTypeId"/>
+    </resultMap>-->
+
+    <insert id="save">
+        insert into t_type(<include refid="all_columns"></include>) values
+        (null,#{name})
+    </insert>
+
+    <select id="findById" resultType="Type">
+        select <include refid="all_columns"></include> from t_type where id = #{id}
+    </select>
+
+    <select id="findTypeByName" resultType="com.zyt.blog.po.Type">
+        select <include refid="all_columns"></include> from t_type where name = #{name}
+    </select>
+
+    <select id="findAll" resultType="com.zyt.blog.po.Type">
+        select <include refid="all_columns"></include> from t_type
+    </select>
+
+    <update id="updateById">
+        update t_type
+        <trim prefix="set" suffixOverrides=" , ">
+           <if test="name != null">name = #{name}</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from t_type where id = #{id}
+    </delete>
+
+
+
+</mapper>
