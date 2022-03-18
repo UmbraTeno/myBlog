@@ -216,8 +216,8 @@
                        </div>
                    </div>
                     <div class="ui teal segment">
-                        <div class="ui fluid vertical menu">
-                            <a href="#" th:href="@{/type/{id}(id=${type.typeId})}" target="_blank" class="item" th:each="type : ${types}">
+                        <div class="ui fluid vertical menu teal">
+                            <a href="#" th:href="@{/type/{id}(id=${type.typeId})}" target="_blank" class="item m-teal" th:each="type : ${types}">
                                 <span th:text="${type.typeName}">学习日志</span>
                                 <div class="ui teal basic left pointing label" th:text="${type.blogCount}">13</div>
                             </a>

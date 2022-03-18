@@ -52,7 +52,6 @@ public class BlogServiceImpl implements BlogService {
         blog.setContent(MarkDownUtils.markdownToHtmlExtensions(blog.getContent()));
         blog.setViews(blog.getViews()+1);   //访问数量+1
         blogMapper.updateView(blog);    //更新一下博客的访问数据
-        blogMapper.updateById(blog);
         return blog;
     }
 

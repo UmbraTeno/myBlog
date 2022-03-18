@@ -71,9 +71,7 @@ public class BlogController {
         setTypeAndTag(model);
         Blog blog = blogService.getBlog(id,null);
         if (blog != null) {
-            blog.init();    ////将tags集合转换为tagIds字符串
-        }else{
-
+            blog.init();    //将tags集合转换为tagIds字符串
         }
         model.addAttribute("blog",blog);
         return INPUT;
