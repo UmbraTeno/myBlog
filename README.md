@@ -28,10 +28,10 @@
 
 ~~~mermaid
 graph TD
-t_blog(t_blog)  == 多对一 ==> t_type(t_type)
-t_blog(t_blog)  == 多对一 ==> t_user(t_user)
-t_blog(t_blog)  == 多对多 ==> t_tag(t_tag)
-t_blog(t_blog)  == 一对多 ==> t_comment(t_comment)
+t_blog(t_blog)  ==多对一==> t_type(t_type)
+t_blog(t_blog)  ==多对一==> t_user(t_user)
+t_blog(t_blog)  ==多对多==> t_tag(t_tag)
+t_blog(t_blog)  ==一对多==> t_comment(t_comment)
 t_comment(t_comment) ==一对多==> t_comment(t_comment)
 ~~~
 
