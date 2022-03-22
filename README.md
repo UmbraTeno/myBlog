@@ -14,8 +14,10 @@
  ## 项目需求
 
 <img src="https://gitee.com/zou_yt/image/raw/master/img/个人博客系统思维导图.png" style="zoom: 80%;">
+
  ## 数据库构建
-  ### 数据库模型
+ 
+ ### 数据库模型
 
 <img src="https://gitee.com/zou_yt/image/raw/master/img/个人博客项目数据库模型.png" style="zoom: 80%;">
 
