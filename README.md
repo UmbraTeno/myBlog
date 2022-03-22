@@ -13,4 +13,4 @@
  ## 项目需求
  ### 后台博客管理
  - 管理员登录（由于是个人博客项目，所以没有设计注册功能）
-    - ![管理员登录](https://gitee.com/zou_yt/image/raw/master/img/博客后端管理登录.png)
+  - <img src="https://gitee.com/zou_yt/image/raw/master/img/博客后端管理登录.png" style="width='100px'">
