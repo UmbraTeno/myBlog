@@ -16,10 +16,32 @@
 <img src="https://gitee.com/zou_yt/image/raw/master/img/个人博客系统思维导图.png" style="zoom: 80%;">
 
  ## 数据库构建
- 
- ### 数据库模型
+
+### 表关系
+
+1. 一个用户可以发布多篇博客；
+2. 一个类别可以有多篇博客
+3. 一篇博客可以有多个标签，一个标签可以出现在多篇博客中；
+4. 一篇博客可以有多个评论
+5. 一个评论可以有多个回复评论
+
+
+~~~mermaid
+graph TD
+t_blog(t_blog)  == 多对一 ==> t_type(t_type)
+t_blog(t_blog)  == 多对一 ==> t_user(t_user)
+t_blog(t_blog)  == 多对多 ==> t_tag(t_tag)
+t_blog(t_blog)  == 一对多 ==> t_comment(t_comment)
+t_comment(t_comment) ==一对多==> t_comment(t_comment)
+~~~
+
+  ### 数据库模型
+
+项目中的**createTable.sql**可以直接创建下列表。
 
 <img src="https://gitee.com/zou_yt/image/raw/master/img/个人博客项目数据库模型.png" style="zoom: 80%;">
+
+### java对象
 
  - t_blog博客对象
  ```java
