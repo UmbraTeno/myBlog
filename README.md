@@ -13,7 +13,7 @@
   - MySQL 8.0.17
  ## 项目需求
 
-<img src="https://gitee.com/zou_yt/image/raw/master/img/个人博客系统思维导图.png" style="zoom: 80%;">
+<img src="https://s2.loli.net/2022/03/31/ObjrV7gDsGf2IuB.png" style="zoom: 80%;">
 
  ## 数据库构建
 
@@ -39,7 +39,7 @@ t_comment(t_comment) ==一对多==> t_comment(t_comment)
 
 项目中的**createTable.sql**可以直接创建下列表。
 
-<img src="https://gitee.com/zou_yt/image/raw/master/img/个人博客项目数据库模型.png" style="zoom: 80%;">
+<img src="https://s2.loli.net/2022/03/31/45EpYFMnI3NRXdv.png" style="zoom: 80%;">
 
 ### java对象
 
