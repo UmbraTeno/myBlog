@@ -13,7 +13,7 @@
   - MySQL 8.0.17
  ## 项目需求
 
-<img src="https://s2.loli.net/2022/03/31/ObjrV7gDsGf2IuB.png" style="zoom: 80%;">
+<img src="https://s2.loli.net/2022/03/31/ObjrV7gDsGf2IuB.png" style="zoom: 100%;">
 
  ## 数据库构建
 
